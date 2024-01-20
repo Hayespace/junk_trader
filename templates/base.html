@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Junk Trader</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Your custom CSS styles -->
+    <style>
+        body {
+            background-color: #f8f9fa; /* Bootstrap default background color */
+        }
+
+        .navbar {
+            background-color: #007bff; /* Bootstrap primary color */
+        }
+
+        .navbar-brand {
+            color: #ffffff !important; /* White text for brand */
+        }
+
+        .nav-link {
+            color: #ffffff !important; /* White text for links */
+        }
+
+        /* Add your custom styles here */
+
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="#">Junk Trader</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+            <!-- Left-hand column with links to places -->
+            <li class="nav-item">
+                <a class="nav-link" href="#">Place 1</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Place 2</a>
+            </li>
+            <!-- Add more links as needed -->
+        </ul>
+        <ul class="navbar-nav">
+            <!-- Right-hand column with links to bag and progress bar -->
+            <li class="nav-item">
+                <a class="nav-link" href="#">Your Bag</a>
+            </li>
+            <li class="nav-item">
+                <div class="progress">
+                    <!-- Add your progress bar code here -->
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container mt-3">
+    <!-- Banner with logo and game name -->
+    <div class="jumbotron">
+        <h1 class="display-4">Junk Trader</h1>
+        <p class="lead">Welcome to the gritty world of post-apocalyptic trading!</p>
+    </div>
+
+    <!-- Loan sharks section -->
+    <div class="row mb-4">
+        <div class="col">
+            <a href="#">
+                <!-- Loan shark image 1 -->
+                <img src="loan_shark_image_1.jpg" alt="Loan Shark 1">
+            </a>
+            <!-- Add additional loan sharks as needed -->
+        </div>
+        <div class="col">
+            <!-- Display amount owed and time left for Loan Shark 1 -->
+            <p>Amount Owed: $100</p>
+            <p>Time Left: 10 days</p>
+            <!-- Add additional loan shark information as needed -->
+        </div>
+    </div>
+
+    <!-- Items section with background image -->
+    <div class="row">
+        <div class="col">
+            <!-- Display items and prices here -->
+        </div>
+    </div>
+
+    <!-- Money and debt counter section -->
+    <div class="text-center mt-3">
+        <p>Total Money: $500</p>
+        <p>Debt: $200</p>
+        <p>Days Left: 20 out of 30</p>
+    </div>
+</div>
+
+<!-- Bootstrap JS and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- Your custom JavaScript code -->
+
+</body>
+</html>
