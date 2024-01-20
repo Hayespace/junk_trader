@@ -1,12 +1,36 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+    {% block meta %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Junk Trader</title>
+    {% endblock %}
+
+    {% block extra_meta %}
+    {% endblock %}
+
     <!-- Bootstrap CSS -->
+    {% block corecss %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Your custom CSS styles -->
+    {% endblock %}
+
+    {% block extra_css %}
+    {% endblock %}
+
+    {% block corejs %}
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    {% endblock %}
+
+    {% block extra_js %}
+    {% endblock %}
+
+    <title>Junk Trader {% block extra_title %}{% endblock %}</title>
+    
     <style>
         body {
             background-color: #f8f9fa; /* Bootstrap default background color */
@@ -23,10 +47,8 @@
         .nav-link {
             color: #ffffff !important; /* White text for links */
         }
-
-        /* Add your custom styles here */
-
     </style>
+
 </head>
 <body>
 
@@ -72,18 +94,20 @@
         <div class="col">
             <a href="#">
                 <!-- Loan shark image 1 -->
-                <img src="loan_shark_image_1.jpg" alt="Loan Shark 1">
+                <img src="{% static 'loan_shark_image_1.jpg' %}" alt="Loan Shark 1">
             </a>
             <!-- Add additional loan sharks as needed -->
         </div>
         <div class="col">
             <!-- Display amount owed and time left for Loan Shark 1 -->
-            <p>Amount Owed: $100</p>
-            <p>Time Left: 10 days</p>
+            <p>Amount Owed: ${{ loan_amount }}</p> {# Replace with actual loan amount #}
+            <p>Time Left: {{ days_left }} days</p> {# Replace with actual days left #}
             <!-- Add additional loan shark information as needed -->
         </div>
     </div>
 
+    {% block content %}
+    {% endblock %}
     <!-- Items section with background image -->
     <div class="row">
         <div class="col">
@@ -93,18 +117,24 @@
 
     <!-- Money and debt counter section -->
     <div class="text-center mt-3">
-        <p>Total Money: $500</p>
-        <p>Debt: $200</p>
-        <p>Days Left: 20 out of 30</p>
+        <p>Total Money: ${{ total_money }}</p> {# Replace with actual total money #}
+        <p>Debt: ${{ debt }}</p> {# Replace with actual debt #}
+        <p>Days Left: {{ days_left }} out of 30</p> {# Replace with actual days left #}
     </div>
 </div>
 
-<!-- Bootstrap JS and jQuery -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{% if messages %}
+<div class="message-container"></div>
+{% endif %}
 
-<!-- Your custom JavaScript code -->
+{% block page_header %}
+{% endblock %}
+
+{% block content %}
+{% endblock %}
+
+{% block postloadjs %}
+{% endblock %}
 
 </body>
 </html>
