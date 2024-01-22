@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'home',
+    'items',
 ]
 
 MIDDLEWARE = [
@@ -57,9 +58,9 @@ MIDDLEWARE = [
     'allauth.account.middleware.AccountMiddleware',
 ]
 
-CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = False  # Set to True in production if using HTTPS
 
-CSRF_TRUSTED_ORIGINS = ['https://8000-hayespace-junktrader-ahkk4picc5e.ws-eu107.gitpod.io']
+CSRF_TRUSTED_ORIGINS = ['https://8000-hayespace-junktrader-p34592fbmuj.ws-eu107.gitpod.io']
 
 ROOT_URLCONF = 'junktrader.urls'
 
