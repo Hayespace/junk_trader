@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-wv4&kr%sc4&k%x9hzy=krcmz*g@m3t6x*$p-b8o+jn*^!*_mp!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['8000-hayespace-junktrader-uaxcjdtdd05.ws-eu107.gitpod.io']
+ALLOWED_HOSTS = ['8000-hayespace-junktrader-p34592fbmuj.ws-eu107.gitpod.io']
 
 
 # Application definition
