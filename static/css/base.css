@@ -1,85 +1,64 @@
-html {
+html, body {
     height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: "Lato", sans-serif;
 }
 
 body {
-	background: url('/media/bg_image.png') no-repeat center center fixed;
-	background-size: cover;
-    height: calc(100vh - 164px);
+    background: url('/media/bg_image.png') no-repeat center center fixed;
+    background-size: cover;
     color: #555;
-    font-family: "Lato";
+    height: calc(100vh - 164px);
 }
 
-/* from Bulma */
-.icon {
-    align-items: center;
-    display: inline-flex;
-    justify-content: center;
-    height: 1.5rem;
-    width: 1.5rem;
+.container {
+    max-width: 100%;
 }
 
-.logo-font {
+/* Header Styles */
+header {
+    background: #fff;
+    padding: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
     text-transform: uppercase;
 }
 
-.main-logo-link {
-    width: fit-content;
+/* Sidebar Styles */
+.sidebar {
+    background: #f8f9fa;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    position: fixed;
+    padding-top: 20px;
 }
 
-.shop-now-button {
-    background: black;
-    color: white;
-    min-width: 260px;
+.sidebar-sticky {
+    position: relative;
+    top: 20px;
 }
 
-.btn-black {
-    background: black;
-    color: white;
+/* Main Content Styles */
+main {
+    margin-top: 20px;
 }
 
-.shop-now-button:hover,
-.shop-now-button:active,
-.shop-now-button:focus,
-.btn-black:hover,
-.btn-black:active,
-.btn-black:focus {
-    background: #222;
-    color: white;
-}
-
-.text-black {
-    color: #000 !important;
-}
-
-.border-black {
-    border: 1px solid black !important;
-}
-
-.bg-black {
-    background: #000 !important;
-}
-
-/* --------------------------------- Media queries */
-
-/* Slightly larger container on xl screens */
+/* Media Queries */
 @media (min-width: 1200px) {
-  .container {
-    max-width: 80%;
-  }
+    .container {
+        max-width: 80%;
+    }
 }
 
-/* fixed top navbar only on medium and up */
 @media (min-width: 992px) {
-    .fixed-top-desktop-only {
-        position: fixed;
-        top: 0;
-        right: 0;
-        left: 0;
-        z-index: 1030;
-    }
-
     .header-container {
         padding-top: 164px;
+    }
+
+    .right-sidebar {
+        display: none; /* Hide right sidebar on smaller screens */
     }
 }
