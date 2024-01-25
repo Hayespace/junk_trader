@@ -32,125 +32,149 @@
     {% block extra_js %}
     {% endblock %}
 
-<title>Junk Trader {% block extra_title %}{% endblock %}</title>
+    <title>{% block extra_title %}{% endblock %}</title>
 </head>
 <body>
-    <header class="container-fluid fixed-top">
-        <div class="row bg-white pt-lg-2 d-none d-lg-flex">
-            <div class="col-12 col-lg-4 my-auto py-1 py-lg-0 text-center text-lg-left">
-                    <h2 class="logo-font text-black my-0"><strong>JUNK</strong> TRADER</h2>
-            </div>
-            <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
-                
-            </div>
-            <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
-                <ul class="list-inline list-unstyled text-center text-lg-right my-0">
-                    <li class="list-inline-item dropdown">
-                        <a class="text-black nav-link d-block d-lg-none" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <div class="text-center">
-                                <div><i class="fas fa-user fa-lg"></i></div>
-                                <p class="my-0">My Account</p>
-                            </div>
-                        </a>
-                        <div class="dropdown-menu border-0" aria-labelledby="user-options">
-                            {% if request.user.is_authenticated %}
-                                {% if request.user.is_superuser %}
-                                    <a href="{% url 'account_logout' %}" class="dropdown-item">Item Management</a>
-                                {% endif %}
-                                <a href="" class="dropdown-item">My Profile</a>
-                                <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
-                            {% else %}
-                                <a href="{% url 'account_signup' %}" class="dropdown-item">Register</a>
-                                <a href="{% url 'account_login' %}" class="dropdown-item">Login</a>
-                            {% endif %}
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <a class="navbar-brand" href="#">JUNK TRADER</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                <!-- Header Icons -->
+                <li class="list-inline-item dropdown">
+                    <a class="text-black nav-link" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <div class="text-center">
+                            <div><i class="fas fa-user fa-lg"></i></div>
+                            <p class="my-0">My Account</p>
                         </div>
-                    </li>
-                    <li class="list-inline-item">
-                        <a class="{% if grand_total %}text-info font-weight-bold{% else %}text-black{% endif %} nav-link" href="">
-                            <div class="text-center">
-                                <div><i class="fas fa-shopping-bag fa-lg"></i></div>
-                                <p class="my-0">
-                                    {% if grand_total %}
-                                        ${{ grand_total|floatformat:2 }}
-                                    {% else %}
-                                        $0.00
-                                    {% endif %}
-                                </p>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            
+                    </a>
+                    <div class="dropdown-menu border-0" aria-labelledby="user-options">
+                        {% if request.user.is_authenticated %}
+                            {% if request.user.is_superuser %}
+                                <a href="{% url 'account_logout' %}" class="dropdown-item">Item Management</a>
+                            {% endif %}
+                            <a href="" class="dropdown-item">My Profile</a>
+                            <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
+                        {% else %}
+                            <a href="{% url 'account_signup' %}" class="dropdown-item">Register</a>
+                            <a href="{% url 'account_login' %}" class="dropdown-item">Login</a>
+                        {% endif %}
+                    </div>
+                </li>
+                <li class="list-inline-item">
+                    <a class="{% if grand_total %}text-primary font-weight-bold{% else %}text-black{% endif %} nav-link" href="">
+                        <div class="text-center">
+                            <div><i class="fa-solid fa-wallet"></i></div>
+                            <p class="my-0">
+                                {% if grand_total %}
+                                    ${{ grand_total|floatformat:2 }}
+                                {% else %}
+                                    $0.00
+                                {% endif %}
+                            </p>
+                        </div>
+                    </a>
+                </li>
+            </ul>
         </div>
-        <div class="row bg-white">
-            <nav class="navbar navbar-expand-lg navbar-light w-100">
-               
-                {% include 'includes/mobile-top-header.html' %}
-            </nav>
-        </div>
-    </header>
+    </nav>
 
-    {% if messages %}
-        <div class="message-container"></div>
-    {% endif %}
-
+    <!-- Page Content -->
     <div class="container-fluid">
         <div class="row">
-            <nav class="col-md-2 d-none d-md-block  sidebar">
-                <!-- Left Sidebar Content Goes Here -->
-                <h2>Locations</h2>
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#location1">Location 1</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#location2">Location 2</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#location3">Location 3</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#location4">Location 4</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#location5">Location 5</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#location6">Location 6</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#location7">Location 7</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#location8">Location 8</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#location9">Location 9</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#location10">Location 10</a>
-                    </li>
-                </ul>
-            </nav>
-            
-            <main role="main" class="col-md-8 ml-sm-auto col-lg-10 px-md-4">
-                <!-- Main Content Goes Here -->
-                {% block page_header %}
-                {% endblock %}
 
-                {% block content %}
-                {% endblock %}
+           <!-- Sidebar -->
+<nav class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+    <div class="sidebar-sticky">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link active" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link 1</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link 2</a>
+            </li>
+            <!-- Add more sidebar links as needed -->
+
+            <!-- Cards with Modals -->
+            <li class="nav-item">
+                <a class="nav-link" href="#" data-toggle="modal" data-target="#modal1">
+                    Card 1
+                </a>
+            </li>
+            <!-- Add more cards as needed -->
+
+            <!-- Modal 1 -->
+            <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="modal1Label" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modal1Label">Modal 1 Title</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Modal 1 Content -->
+                            <p>Content of Modal 1 goes here.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <!-- Add more modal buttons as needed -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Add more modals as needed -->
+        </ul>
+    </div>
+</nav>
+
+
+            <!-- Main Content Area -->
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                {% block content %}{% endblock %}
             </main>
+            
+            <!-- Toolbar for smaller screens -->
+            <div class="toolbar">
+                <a href="#" class="text-black">
+                    <div class="text-center">
+                        <div><i class="fa-solid fa-plane"></i></div>
+                        <p class="my-0">Travel</p>
+                    </div>
+                </a>
+                <a href="#" class="text-black">
+                    <div class="text-center">
+                        <div><i class="fa-solid fa-comments-dollar"></i></div>
+                        <p class="my-0">Loans</p>
+                    </div>
+                </a>
+                <a href="#" class="text-black">
+                    <div class="text-center">
+                        <div><i class="fa-solid fa-bag-shopping"></i></div>
+                        <p class="my-0">Bag</p>
+                    </div>
+                </a>
+                <a href="#" class="text-black">
+                    <div class="text-center">
+                        <div><i class="fa-solid fa-shop"></i></div>
+                        <p class="my-0">Shop</p>
+                    </div>
+                </a>
+                <!-- Add more toolbar items as needed -->
+            </div>
 
-            <aside class="col-md-2 d-none d-md-block">
-                <!-- Right Sidebar Content Goes Here -->
-            </aside>
         </div>
     </div>
 
-    {% block postloadjs %}
-    {% endblock %}
-
 </body>
+
 </html>

@@ -1,0 +1,97 @@
+<body>
+    <header>
+        <!-- Dropdown Structure -->
+        <ul id="dropdown1" class="dropdown-content">
+            {% if session.user %}
+            <li><a href="{{ url_for('add_video') }}">Add Video</a></li>
+            <li><a href="{{ url_for('profile', username=session['user']) }}">My Stuff</a></li>
+            {% if session.user|lower == "admin"|lower %}
+            <li><a href="{{ url_for('get_categories') }}">Admin Portal</a></li>
+            {% endif %}
+            <li class="divider"></li>
+            <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+            {% else %}
+            <li><a href="{{ url_for('login') }}">Log In</a></li>
+            <li><a href="{{ url_for('register') }}">Register</a></li>
+            {% endif %}
+        </ul>
+
+        <div class="navbar-fixed">
+            <nav>
+             <!--<div class="nav-wrapper" style="background-image: url('/static/assets/10.png'); background-size: cover; background-repeat: no-repeat; background-position: center; opacity: 0.75">-->
+                
+                <!-- Logo in the center 
+                <a href="{{ url_for('get_videos') }}" class="brand-logo center">
+                  <img src="/static/assets/logo1.png" alt="Your Logo" class="responsive-img banner-logo">
+                </a> -->
+                <div class="dropdown-logo">
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger right"> 
+                    <img height="50" width="50" src="/static/assets/logo2.png" alt="Logo">
+                </a>
+              </div>
+                <ul class="right hide-on-med-and-down">
+                  <li><a href="{{ url_for('get_videos') }}">Home</a></li>
+                  <li>
+                    <a class="dropdown-trigger" href="#" data-target="dropdown1">
+                      Portal <i class="material-icons right"></i>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+          </div>
+
+        <!-- Mobile Sidenav -->
+        <ul class="sidenav" id="mobile-demo">
+            <li>
+        <!-- Logo Section -->
+            <div class="logo-section center-align logo">
+              <img height="100" width="100" src="/static/assets/logo2.png" alt="Your Logo">
+            </div>
+            </li>
+            <li><a href="{{ url_for('get_videos') }}">Home</a></li>
+            {% if session.user %}
+            <li><a href="{{ url_for('add_video') }}">Add Video</a></li>
+            <li><a href="{{ url_for('profile', username=session['user']) }}">Profile</a></li>
+            {% if session.user|lower == "admin"|lower %}
+            <li><a href="{{ url_for('get_categories') }}">Admin Portal</a></li>
+            {% endif %}
+            <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+            {% else %}
+            <li><a href="{{ url_for('login') }}">Log In</a></li>
+            <li><a href="{{ url_for('register') }}">Register</a></li>
+            {% endif %}
+        <!-- Search Bar -->
+            <div class="row">
+              <form action="{{ url_for('search') }}" method="post" class="col s12">
+                <div class="row input">
+                  <div class="input-field">
+                    <input type="text" name="query" id="query" minlength="3" class="validate" required>
+                    <label for="query">Search Videos</label>
+                  </div>
+                  <div class="valign-wrapper right">
+                    <a href="{{ url_for('get_videos') }}" class="red btn-small text-shadow"><i class="fas fa-xmark"></i></a>
+                    <button type="submit" class="light-blue darken-1 btn-small text-shadow">
+                      <i class="fas fa-rocket"></i>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+        </ul>
+    </header>
+    <section>
+        <!-- flash messages -->
+        {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
+        <div class="row flashes">
+            <h3 class="flash-style center-align">{{ message }}</h4>
+        </div>
+        {% endfor %} {% endif %} {% endwith %}
+    </section>
+    <main class="container">{% block content %} {% endblock %}</main>
+    <main>{% block landing %} {% endblock %}</main>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    {% block scripts %} {% endblock %}
+</body>

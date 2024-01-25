@@ -18,9 +18,9 @@ body {
 
 /* Header Styles */
 header {
-    background: #fff;
+    
     padding: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    
 }
 
 .navbar-brand {
@@ -46,6 +46,10 @@ main {
     margin-top: 20px;
 }
 
+.toolbar {
+    display: none;
+}
+
 /* Media Queries */
 @media (min-width: 1200px) {
     .container {
@@ -57,8 +61,25 @@ main {
     .header-container {
         padding-top: 164px;
     }
-
-    .right-sidebar {
-        display: none; /* Hide right sidebar on smaller screens */
-    }
 }
+
+       
+@media (max-width: 768px) {
+    .sidebar {
+        display: none;
+     }
+
+    .toolbar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: #f8f9fa;
+        border-top: 1px solid #dee2e6;
+        padding: 8px;
+        display: flex;
+        justify-content: space-around;
+        }
+    }
+
+   
