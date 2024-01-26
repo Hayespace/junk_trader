@@ -50,6 +50,10 @@ main {
     display: none;
 }
 
+.nav-pad {
+    padding-top: 5%;
+}
+
 /* Media Queries */
 @media (min-width: 1200px) {
     .container {
