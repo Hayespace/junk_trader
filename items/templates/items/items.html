@@ -21,64 +21,128 @@
                 </div>
                 <div class="row mt-1 mb-2"></div>
                 <div class="row">
-      <!-- Cards with Modals -->
-{% for item in items %}
-<div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
-    <div class="card h-100 border-0">
-        {% if item.image %}
-            <a href="#" data-toggle="modal" data-target="#itemModal{{ item.id }}" onclick="updateModalContent('{{ item.image.url }}', '{{ item.name }}')">
-                <img class="card-img-top img-fluid" src="{{ item.image.url }}" alt="{{ item.name }}">
-            </a>
-        {% else %}
-            <a href="#" data-toggle="modal" data-target="#itemModal{{ item.id }}" onclick="updateModalContent('{{ MEDIA_URL }}noimage.png', '{{ item.name }}')">
-                <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.name }}">
-            </a>
-        {% endif %}
-        <div class="card-body pb-0">
-            <p class="mb-0">{{ item.name }}</p>
-        </div>
-        <div class="card-footer bg-white pt-0 border-0 text-left">
-            <div class="row">
-                <div class="col">
-                    <p class="lead mb-0 text-left font-weight-bold">${{ item.base_price }}</p>
-                    <small class="text-muted">Available: {{ item.quantity_available }}</small>
+                    <!-- Cards with Modals -->
+                    {% for item in items %}
+                        <div class="col-sm-12 col-md-4 col-lg-4 mb-3">
+                            <div class="card h-100 border-0" data-available-quantity="{{ item.quantity_available }}" data-item-id="{{ item.id }}" id="card{{ item.id }}">
+                                {% if item.image %}
+                                    <a href="#" data-toggle="modal" data-target="#itemModal{{ item.id }}" onclick="updateModalContent('{{ item.image.url }}', '{{ item.name }}', '{{ item.id }}', {{ item.quantity_available }})">
+                                        <img class="card-img-top img-fluid" src="{{ item.image.url }}" alt="{{ item.name }}">
+                                    </a>
+                                {% else %}
+                                    <a href="#" data-toggle="modal" data-target="#itemModal{{ item.id }}" onclick="updateModalContent('{{ MEDIA_URL }}noimage.png', '{{ item.name }}', '{{ item.id }}', {{ item.quantity_available }})">
+                                        <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.name }}">
+                                    </a>
+                                {% endif %}
+                                <div class="card-body pb-0">
+                                    <p class="mb-0">{{ item.name }}</p>
+                                </div>
+                                <div class="card-footer bg-white pt-0 border-0 text-left">
+                                    <div class="row">
+                                        <div class="col">
+                                            <p class="lead mb-0 text-left font-weight-bold">${{ item.base_price }}</p>
+                                            <small class="text-muted">Available: {{ item.quantity_available }}</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="itemModal{{ item.id }}" tabindex="-1" role="dialog" aria-labelledby="itemModalLabel{{ item.id }}" aria-hidden="true">
+                                <div class="modal-dialog modal-l" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="itemModalLabel{{ item.id }}">{{ item.name }}</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="container-fluid">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="image-container my-5 text-center">
+                                                            {% if item.image %}
+                                                                <a href="{{ item.image.url }}" target="_blank">
+                                                                    <img id="modalImage{{ item.id }}" class="card-img-top img-fluid" src="{{ item.image.url }}" alt="{{ item.name }}">
+                                                                </a>
+                                                            {% else %}
+                                                                <a href="#">
+                                                                    <img id="modalImage{{ item.id }}" class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.name }}">
+                                                                </a>
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="product-details-container mb-5 mt-md-5 text-center">
+                                                            <p class="mb-0">{{ item.name }}</p>
+                                                            <p class="lead mb-0 text-left font-weight-bold">${{ item.base_price }}</p>
+                                                            {% if item.category %}
+                                                                <p class="small mt-1 mb-0">
+                                                                    <a class="text-muted" href="{% url 'products' %}?category={{ item.category.name }}">
+                                                                        <i class="fas fa-tag mr-1"></i>{{ item.category.friendly_name }}
+                                                                    </a>
+                                                                </p>
+                                                            {% endif %}
+                                                            <p class="mt-3">{{ item.description }}</p>
+                                                            <p id="modalAvailable{{ item.id }}" class="text-muted">Available: {{ item.quantity_available }}</p>
+                                                            <form class="form" action="" method="POST">
+                                                                {% csrf_token %}
+                                                                <div class="form-row">
+                                                                    <div class="col-12">
+                                                                        <p class="mt-3"><strong>Quantity:</strong></p>
+                                                                        <div class="form-group w-50 mx-auto">
+                                                                            <div class="input-group">
+                                                                                <input class="form-control qty_input" type="number" name="quantity" value="1" min="1" max="99" data-item_id="{{ item.id }}" id="id_qty_{{ item.id }}">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12">
+                                                                        <button type="submit" class="btn btn-black rounded-0 text-uppercase mt-5 btn-block">Buy</button>
+                                                                    </div>
+                                                                    <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="itemModal{{ item.id }}" tabindex="-1" role="dialog" aria-labelledby="itemModalLabel{{ item.id }}" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="itemModalLabel{{ item.id }}">{{ item.name }}</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <img id="modalImage" class="img-fluid" alt="{{ item.name }}">
-                    <p>Item details, description, etc.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-{% endfor %}
+    <script>
+        function updateModalContent(imageUrl, itemName, itemId, availableQuantity) {
+            // Update the image
+            document.getElementById('modalImage' + itemId).src = imageUrl;
 
-<script>
-function updateModalContent(imageUrl, itemName) {
-    document.getElementById('modalImage').src = imageUrl;
-    document.getElementById('itemModalLabel').innerText = itemName;
-}
-</script>
+            // Update the item name
+            document.getElementById('itemModalLabel' + itemId).innerText = itemName;
 
-                </div>
-            </div>
-        </div>
-    </div>
+            // Update the details in the modal
+            document.querySelector('#itemModal' + itemId + ' .modal-body .image-container a').href = imageUrl;
+            document.querySelector('#itemModal' + itemId + ' .modal-body p.mb-0').innerText = itemName;
+            document.querySelector('#itemModal' + itemId + ' .modal-body p.lead.mb-0').innerText = "${{ item.base_price }}";
+            document.querySelector('#itemModal' + itemId + ' .modal-body p.mt-3').innerText = "{{ item.description }}";
+            document.querySelector('#itemModal' + itemId + ' .modal-body p#modalAvailable' + itemId).innerText = "Available: " + availableQuantity;
+
+            // Update the quantity input max attribute
+            var qtyInput = document.getElementById('id_qty_' + itemId);
+            if (qtyInput) {
+                qtyInput.max = availableQuantity;
+            }
+        }
+    </script>
+
 {% endblock %}

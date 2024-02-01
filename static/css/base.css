@@ -54,6 +54,11 @@ main {
     padding-top: 5%;
 }
 
+.btn-black {
+    background-color: black;
+    color: #f8f9fa;
+}
+
 /* Media Queries */
 @media (min-width: 1200px) {
     .container {
