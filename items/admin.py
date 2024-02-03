@@ -5,6 +5,7 @@ from .models import Item
 
 class ItemsAdmin(admin.ModelAdmin):
     list_display = (
+        'item_id',
         'name',
         'base_price',
         'quantity_available',

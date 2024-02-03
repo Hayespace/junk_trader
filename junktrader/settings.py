@@ -27,8 +27,7 @@ SECRET_KEY = 'django-insecure-wv4&kr%sc4&k%x9hzy=krcmz*g@m3t6x*$p-b8o+jn*^!*_mp!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['8000-hayespace-junktrader-fl3gqy6lpgr.ws-eu107.gitpod.io']
-
+ALLOWED_HOSTS = ['8000-hayespace-junktrader-fl3gqy6lpgr.ws-eu108.gitpod.io', 'localhost', '127.0.0.1']
 
 # Application definition
 
@@ -61,10 +60,8 @@ MIDDLEWARE = [
 
 CSRF_COOKIE_SECURE = False  # Set to True in production if using HTTPS
 
-CSRF_TRUSTED_ORIGINS = [
-    'https://8000-hayespace-junktrader-p34592fbmuj.ws-eu107.gitpod.io',
-    'https://8000-hayespace-junktrader-fl3gqy6lpgr.ws-eu107.gitpod.io',
-]
+CSRF_TRUSTED_ORIGINS = ['https://8000-hayespace-junktrader-fl3gqy6lpgr.ws-eu108.gitpod.io']
+
 
 ROOT_URLCONF = 'junktrader.urls'
 
@@ -82,7 +79,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'bag.contexts.bag_item',
+                'bag.contexts.bag_contents',
             ],
         },
     },

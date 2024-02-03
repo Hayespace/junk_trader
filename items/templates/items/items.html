@@ -26,11 +26,11 @@
                         <div class="col-sm-12 col-md-4 col-lg-4 mb-3">
                             <div class="card h-100 border-0" data-available-quantity="{{ item.quantity_available }}" data-item-id="{{ item.id }}" id="card{{ item.id }}">
                                 {% if item.image %}
-                                    <a href="#" data-toggle="modal" data-target="#itemModal{{ item.id }}" onclick="updateModalContent('{{ item.image.url }}', '{{ item.name }}', '{{ item.id }}', {{ item.quantity_available }})">
+                                    <a href="#" data-toggle="modal" data-target="#itemModal{{ item.id }}" onclick="updateModalContent('{{ item.image.url }}', '{{ item.name }}', '{{ item.id }}', {{ item.quantity_available }}, {{ item.base_price|default:0 }}, '{{ item.description }}')">
                                         <img class="card-img-top img-fluid" src="{{ item.image.url }}" alt="{{ item.name }}">
                                     </a>
                                 {% else %}
-                                    <a href="#" data-toggle="modal" data-target="#itemModal{{ item.id }}" onclick="updateModalContent('{{ MEDIA_URL }}noimage.png', '{{ item.name }}', '{{ item.id }}', {{ item.quantity_available }})">
+                                    <a href="#" data-toggle="modal" data-target="#itemModal{{ item.id }}" onclick="updateModalContent('{{ item.image.url }}', '{{ item.name }}', '{{ item.id }}', {{ item.quantity_available }}, {{ item.base_price|default:0 }}, '{{ item.description }}')">
                                         <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.name }}">
                                     </a>
                                 {% endif %}
@@ -77,16 +77,11 @@
                                                         <div class="product-details-container mb-5 mt-md-5 text-center">
                                                             <p class="mb-0">{{ item.name }}</p>
                                                             <p class="lead mb-0 text-left font-weight-bold">${{ item.base_price }}</p>
-                                                            {% if item.category %}
-                                                                <p class="small mt-1 mb-0">
-                                                                    <a class="text-muted" href="{% url 'products' %}?category={{ item.category.name }}">
-                                                                        <i class="fas fa-tag mr-1"></i>{{ item.category.friendly_name }}
-                                                                    </a>
-                                                                </p>
-                                                            {% endif %}
+                                                           
                                                             <p class="mt-3">{{ item.description }}</p>
                                                             <p id="modalAvailable{{ item.id }}" class="text-muted">Available: {{ item.quantity_available }}</p>
-                                                            <form class="form" action="" method="POST">
+
+                                                            <form class="form" action="{% url 'add_to_bag' item.name %}" method="POST">
                                                                 {% csrf_token %}
                                                                 <div class="form-row">
                                                                     <div class="col-12">
@@ -104,7 +99,8 @@
                                                                 </div>
                                                             </form>
                                                         </div>
-                                                    </div>
+                                                    </div>                                                    
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -123,7 +119,7 @@
     </div>
 
     <script>
-        function updateModalContent(imageUrl, itemName, itemId, availableQuantity) {
+        function updateModalContent(imageUrl, itemName, itemId, availableQuantity, basePrice, description) {
             // Update the image
             document.getElementById('modalImage' + itemId).src = imageUrl;
 
@@ -133,8 +129,16 @@
             // Update the details in the modal
             document.querySelector('#itemModal' + itemId + ' .modal-body .image-container a').href = imageUrl;
             document.querySelector('#itemModal' + itemId + ' .modal-body p.mb-0').innerText = itemName;
-            document.querySelector('#itemModal' + itemId + ' .modal-body p.lead.mb-0').innerText = "${{ item.base_price }}";
-            document.querySelector('#itemModal' + itemId + ' .modal-body p.mt-3').innerText = "{{ item.description }}";
+
+            // Check if basePrice is available and update accordingly
+            if (basePrice !== null && basePrice !== undefined) {
+                document.querySelector('#itemModal' + itemId + ' .modal-body p.lead.mb-0').innerText = "$" + basePrice;
+            } else {
+                document.querySelector('#itemModal' + itemId + ' .modal-body p.lead.mb-0').innerText = "Price not available";
+            }
+
+            // Update the details in the modal using the passed description
+            document.querySelector('#itemModal' + itemId + ' .modal-body p.mt-3').innerText = description;
             document.querySelector('#itemModal' + itemId + ' .modal-body p#modalAvailable' + itemId).innerText = "Available: " + availableQuantity;
 
             // Update the quantity input max attribute
@@ -144,5 +148,4 @@
             }
         }
     </script>
-
 {% endblock %}
