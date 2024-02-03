@@ -3,7 +3,7 @@ from .models import Item
 
 # Register your models here.
 
-class ItemsAdmin(admin.ModelAdmin):
+class ItemAdmin(admin.ModelAdmin):
     list_display = (
         'item_id',
         'name',
@@ -14,4 +14,5 @@ class ItemsAdmin(admin.ModelAdmin):
 
     ordering = ('name',)
 
-admin.site.register(Item, ItemsAdmin)
+
+admin.site.register(Item, ItemAdmin)
