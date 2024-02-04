@@ -1,4 +1,5 @@
 # items/views.py
+
 from django.shortcuts import render, get_object_or_404
 from .models import Item
 
@@ -26,3 +27,6 @@ def items_detail(request, item_id):
     }
 
     return render(request, 'items/items_detail.html', context)
+
+
+
